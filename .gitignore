@@ -1,0 +1,7 @@
+﻿*.vvp
+*.out
+*.vcd
+*.log
+sim.vvp
+sim.out
+.vscode/
