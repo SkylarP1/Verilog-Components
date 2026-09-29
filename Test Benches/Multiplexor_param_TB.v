@@ -62,7 +62,7 @@ initial begin
     #20
     en =    1'b0;
     #50
-    #50;
+    #50
     $display("Complete");
     $finish;
 end
