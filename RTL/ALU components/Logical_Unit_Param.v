@@ -1,10 +1,10 @@
-module lu_param (
+module lu_param #(
     parameter BITS = 8
 )(
-    input   wire    [BITS-1:0]  a;
-    input   wire    [BITS-1:0]  b;
-    input   wire    [2:0]       opcode;
-    output  reg                 out;
+    input   wire    [BITS-1:0]  a,
+    input   wire    [BITS-1:0]  b,
+    input   wire    [2:0]       opcode,
+    output  reg     [BITS-1:0]  out
 );
     always @(*) begin
         case(opcode)
