@@ -15,11 +15,11 @@ The Counter is a parameterized module that allows for synchronous controlled bi-
 #### Inputs
 | Port | Bitwidth | Description |
 | :--- | :---: | :--- |
-| `clk' | `1` | Clock signal, triggers a count |
+| `clk` | `1` | Clock signal, triggers a count |
 | `rst` | `1` | Resets value in counter |
 | `en` | `1` | Enables the counter, enabled when `HIGH` |
 | `dir`| `1` | When `HIGH`, count up, when `LOW`, count down |
-| `load` | `1` | When `HIGH`, load data_in value on next count trigger |
+| `load` | `1` | When `HIGH`, load `data_in` value on next count trigger |
 | `data_in` | `WIDTH` | Data in lines for loading |
 
 #### Outputs
