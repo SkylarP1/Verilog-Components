@@ -1,6 +1,6 @@
 # Combined Definitions for the ALU Components Section
 
-## Logical Unit
+## lu_param
 
 ### Description
 The Logical Unit is a parameterized module that acts as the logical unit in an ALU, allowing for the following functions:
