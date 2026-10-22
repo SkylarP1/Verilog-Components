@@ -64,7 +64,7 @@ cnt_param #(
 
 ## sipo_param
 ### Description
-`sipo_param` is a parameterized Serial-In Parallel-Out shift register. 
+`sipo_param` is a parameterized Serial-In Parallel-Out shift register. It takes in a serial input to combine it into one parallel output.
 
 ---
 
