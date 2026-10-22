@@ -57,3 +57,60 @@ cnt_param #(
 ![Counter Timing Diagram](/Docs/Timing%20Graphs/Counter%20Param%20Timing%20Graph.png)
 
 *Figure 1: `cnt_param` (WIDTH = 4) counting up, counting down, loading, and resetting.*
+
+
+---
+
+
+## sipo_param
+### Description
+`sipo_param` is a parameterized Serial-In Parallel-Out shift register. 
+
+---
+
+### Using the Module
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | Defines bitwidth for `q` |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `serial_in` | `1` | Serial data in |
+| `clk` | `1` | Clock signal, rising edge |
+| `en` | `1` | Enables writing and shifting, allowing the shift register to take in `serial_in` |
+| `rst`| `1` | Active-`HIGH` asynchronous reset. Sets `q` and the internal counter to 0. |
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `q` | `WIDTH` | Current parallel `q` value |
+| `valid` | `1` | Is only `HIGH` when the internal counter is at the Most-Significant bit |
+
+#### Notes
+* Least-Significant Bit(LSB) First. `serial_in` enters at q[0] and shifts left towards q[WIDTH-1] on each active clock edge
+* `valid` is a synchronous pulse, not a held value, asserting that it has reached the most-significant bit
+* If `en` remains `HIGH` continuously past WIDTH cycles, the internal counter resets to `0` and the module immediately begins capturing the next word without pausing. 
+
+---
+
+### Instantiation Example
+```verilog
+sipo_param #(
+    .WIDTH(WIDTH)
+)uut(
+    .serial_in(serial_in),
+    .clk(clk),
+    .en(en),
+    .rst(rst),
+    .q(q),
+    .valid(valid)
+);
+```
+
+### Timing Diagram
+![Counter Timing Diagram](/Docs/Timing%20Graphs/SIPO%20Shift%20Register%20Timing%20Graph.png)
+
+*Figure 1: `sipo_param` (WIDTH = 4) taking in serial data `1010` and then an interrupted serial data in of `0110`*
