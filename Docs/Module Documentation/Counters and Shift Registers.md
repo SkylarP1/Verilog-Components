@@ -1,7 +1,7 @@
-# Combined Definitions for the Counters and Shift Registers section
+# Counters and Shift Registers
 ## cnt_param
 ### Description
-The Counter is a parameterized module that allows for synchronous controlled bi-directional counting and loading of data. 
+`cnt_param` is a parameterized up/down counter with parallel loading. Counting and loading happen synchronously while `rst` is asynchronous.
 
 ---
 
@@ -15,24 +15,24 @@ The Counter is a parameterized module that allows for synchronous controlled bi-
 #### Inputs
 | Port | Bitwidth | Description |
 | :--- | :---: | :--- |
-| `clk` | `1` | Clock signal, triggers a count |
-| `rst` | `1` | Resets value to 0 in counter, triggers posedge asynchronously |
-| `en` | `1` | Enables the counter, enabled when `HIGH` |
+| `clk` | `1` | Clock signal, rising edge |
+| `rst` | `1` | Active-`HIGH` asynchronous reset. Sets `q` to 0 immediately, independent of `clk` |
+| `en` | `1` | Enables the counter, enabled when `HIGH`, holds value in `q` when `LOW` |
 | `dir`| `1` | When `HIGH`, count up, when `LOW`, count down |
-| `load` | `1` | When `HIGH`, load `data_in` value on the next posedge from `clk` when `en` is HIGH |
-| `data_in` | `WIDTH` | Parallel data loaded into the counter when `load` is high |
+| `load` | `1` | When `HIGH`, load `data_in` value on the next posedge from `clk` when `en` is `HIGH` |
+| `data_in` | `WIDTH` | Parallel data loaded into the counter when `load` is `HIGH` |
 
 #### Outputs
 | Port | Bitwidth | Description |
 | :--- | :---: | :--- |
 | `q` | `WIDTH` | Current counter value |
-| `max` | `1` | Set `HIGH` when `q` is at its maximum value |
-| `min` | `1` | Set `HIGH` when `q` is at its minimum value | 
+| `max` | `1` | Is `HIGH` when `q` is all ones |
+| `min` | `1` | Is `HIGH` when `q` is all zeros | 
 
 #### Notes
-* rst operations get priority in sequence, meaning if load is also active, it will reset instead
-* when underflow or overflow occur it wraps (ex. 1111 -> 0000 on count)
-* `min`/`max` are combinational 
+* `rst` takes priority over counting and loading
+* Counting wraps on overflow and underflow (ex. `1111` -> `0000` counting up, `0000` -> `1111` counting down)
+* `min`/`max` are combinational
 
 ---
 
@@ -55,3 +55,5 @@ cnt_param #(
 
 ### Timing Diagram
 ![Counter Timing Diagram](/Docs/Timing%20Graphs/Counter%20Param%20Timing%20Graph.png)
+
+*Figure 1: `cnt_param` (WIDTH = 4) counting up, counting down, loading, and resetting.*
