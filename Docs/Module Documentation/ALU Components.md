@@ -1,32 +1,24 @@
-# Combined Definitions for the ALU Components Section
+# ALU Components
 
 ## lu_param
 
 ### Description
-The Logical Unit is a parameterized module that acts as the logical unit in an ALU, allowing for the following functions:
-- A and B
-- A or B
-- A xor B
-- A nand B
-- A nor B
-- A xnor B
-- not A
-- not B
+`lu_param` is a parameterized module that allows for bitwise logic operations between inputs `a` and `b`, selected by `opcode`.
 
 ---
 
 ### Using the Module
 
 #### Parameters
-| Parameter | Description |
-| :--- | :--- |
-| `BITS` | Defines bitwidth of `a` along with `b` |
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `BITS` | `8` | Defines bitwidth for `a`, `b`, and `out` |
 
 #### Inputs
 | Port | Bitwidth | Description |
 | :--- | :---: | :--- |
-| `a` | `BITS` | Input A |
-| `b` | `BITS` | Input B |
+| `a` | `BITS` | Input `a` |
+| `b` | `BITS` | Input `b` |
 | `opcode` | `3` | Selects the operation for the unit to complete |
 
 ##### Opcode Mapping
@@ -38,19 +30,24 @@ The Logical Unit is a parameterized module that acts as the logical unit in an A
 | `011` | NAND |
 | `100` | NOR |
 | `101` | XNOR |
-| `110` | NOT A |
-| `111` | NOT B |
+| `110` | NOT `a` (`b` ignored) |
+| `111` | NOT `b` (`a` ignored) |
 
 #### Outputs
 | Port | Bitwidth | Description |
 | :--- | :---: | :--- |
 | `out` | `BITS` | Output of selected operation |
 
+#### Notes
+* All operations are bitwise: each bit of `out` depends only on the matching bits of `a` and `b`
+* The module is combinational: `out` updates whenever `a`, `b`, or `opcode` changes
+* All eight `opcode` values are defined
+
 ---
 
 ### Instantiation Example
 ```verilog
-logical_unit #(
+lu_param #(
     .BITS(16)
 ) u_alu_logic (
     .a      (data_a),
@@ -58,3 +55,9 @@ logical_unit #(
     .opcode (ctrl_op),
     .out    (logic_res)
 );
+```
+
+### Timing Diagram
+![Logical Unit Timing Diagram](/Docs/Timing%20Graphs/Logical%20Unit%20Param%20Timing%20Graph.png)
+
+*Figure 1: `lu_param` (BITS = 16) output for each of the eight `opcode` values.*
