@@ -1,7 +1,7 @@
 # Combined Definitions for the ALU Components Section
 ## Logical Unit
 ### Description
-The Logical Unit is a paramatarized module that acts as the logical unit in an ALU, allowing for the following functions:
+The Logical Unit is a parameterized module that acts as the logical unit in an ALU, allowing for the following functions:
 * A and B
 * A or B
 * A xor B
@@ -11,15 +11,15 @@ The Logical Unit is a paramatarized module that acts as the logical unit in an A
 * not A
 * not B
 ### Using the module
-It's paramaters and I/O are defined as follows:
-#### Paramaters
+Its parameters and I/O are defined as follows:
+#### Parameters
 * BITS
     * Defines bitwidth of A along with B
 #### Inputs
 * a, 
-    * Input A, bitwidth defined by paramater BITS
+    * Input A, bitwidth defined by parameter BITS
 * b
-    * Input B, bitwidth defined by paramater BITS
+    * Input B, bitwidth defined by parameter BITS
 * opcode
     * Selects the operation for the unit to complete, bitwidth of 3
     * Selections
