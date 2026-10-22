@@ -54,4 +54,4 @@ cnt_param #(
 ```
 
 ### Timing Diagram
-![Counter Timing Diagram](Docs/Timing%20Graphs/Counter%20Param%20Timing%20Graph.png)
+![Counter Timing Diagram](Docs/Timing Graphs/Counter Param Timing Graph.png)
