@@ -111,6 +111,63 @@ sipo_param #(
 ```
 
 ### Timing Diagram
-![Counter Timing Diagram](/Docs/Timing%20Graphs/SIPO%20Shift%20Register%20Timing%20Graph.png)
+![SIPO Shift Register Timing Diagram](/Docs/Timing%20Graphs/SIPO%20Shift%20Register%20Timing%20Graph.png)
 
 *Figure 1: `sipo_param` (WIDTH = 4) taking in serial data `1010` and then an interrupted serial data in of `0110`*
+
+---
+
+## piso_param
+### Description
+`piso_param` is a parameterized Parallel-in Serial-out shift register. It takes in a full parallel input, and outputs it one bit at a time as a serial output.
+
+---
+
+### Using the Module
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | Defines bitwidth for `parallel_in` |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `parallel_in` | `WIDTH` | parallel data to load |
+| `clk` | `1` | Clock signal, rising edge |
+| `en` | `1` | Enables `clk` |
+| `load` | `1` | Flag to trigger loading on the next `clk` tick |
+| `rst`| `1` | Active-`HIGH` asynchronous reset. Sets `q`, internal register `data`, and the internal counter to 0. |
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `q` | `1` | Current serial output of internal register `data`'s LSB |
+| `finish` | `1` | Is only `HIGH` when the register has output the entirety of the loaded data|
+
+#### Notes
+* Outputs right to left. Starts with the least significant bit first, ends with the most significant bit
+* `finish` is a synchronous pulse, not a held value, asserting that it has output the entirety of the data
+* `rst` inputs will take priority over `load`, `load` takes priority over shifting
+
+---
+
+### Instantiation Example
+```verilog
+piso_param #(
+    .WIDTH(4)
+)uut(
+    .parallel_in(parallel_in),
+    .clk(clk),
+    .en(en),
+    .load(load),
+    .rst(rst),
+    .q(q),
+    .finish(finish)
+);
+```
+
+### Timing Diagram
+![PISO Shift Register Timing Diagram](/Docs/Timing%20Graphs/PISO%20Shift%20Register%20Timing%20Graph.png)
+
+*Figure 1: `piso_param` (WIDTH = 4) taking in parallel data `1010`, outputing it in serial, and then loads `0110`, output interrupted*
