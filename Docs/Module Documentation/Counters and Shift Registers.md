@@ -210,7 +210,7 @@ piso_param #(
 
 #### Notes
 * `rst` takes priority before shifts and loads. Shifts and loads equal priority.
-* default sel value will not change q
+* default sel value will not change `q`
 * no complete flag, data can be continously written
 
 ---
