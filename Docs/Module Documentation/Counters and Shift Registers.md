@@ -171,3 +171,67 @@ piso_param #(
 ![PISO Shift Register Timing Diagram](/Docs/Timing%20Graphs/PISO%20Shift%20Register%20Timing%20Graph.png)
 
 *Figure 1: `piso_param` (WIDTH = 4) taking in parallel data `1010`, outputing it in serial, and then loads `0110`, output interrupted*
+
+---
+
+## uni_sr_param
+### Description
+`uni_sr_param` is a parameterized universal shift register. It can shift left, or shift right, taking either serial inputs or parallel inputs. Output is parallel.
+
+---
+
+### Using the Module
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | Defines bitwidth for `q` and `p_in` |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `sel` | `2` | Shift Mode, see `sel mapping` table below |
+| `rst` | `1` | Active-`HIGH` asynchronous reset. Sets `q` to all `0`s |
+| `en` | `1` | Enables writing and shifting, allowing the shift register to take in data |
+| `clk`| `1` | Clock signal, rising edge |
+| `p_in` | `WIDTH` | Data Input for both serial_in and parallel_in. See `sel` mapping table below |
+##### sel Mapping
+| Opcode | Operation |
+| :---: | :--- |
+| `00` | Do nothing |
+| `01` | Shift Left, take in data from `p_in[0]` |
+| `10` | Shift Right, take in data from `p_in[WIDTH-1]` |
+| `11` | Parallel Load, take in data from `p_in`
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `q` | `WIDTH` | Current parallel shift register value |
+
+#### Notes
+* `rst` takes priority before shifts and loads. Shifts and loads equal priority.
+* default sel value will not change q
+* no complete flag, data can be continously written
+
+---
+
+### Instantiation Example
+```verilog
+uni_sr_param #(
+    .WIDTH(4)
+)uut(
+    .sel    (sel),
+    .rst    (rst),
+    .en     (en),
+    .clk    (clk),
+    .p_in   (p_in),
+    .q      (q)
+);
+```
+
+### Timing Diagram
+![Universal Shift Register Timing Diagram](/Docs/Timing%20Graphs/Universal%20Shift%20Register%20Timing%20Graph.png)
+
+*Figure 1: `uni_sr_param` (WIDTH = 4) taking in serial data `0011` while shifting left, `1100` while shifting right, and `1010` parallel loading*
+
+---
