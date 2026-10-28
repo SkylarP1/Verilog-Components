@@ -11,11 +11,11 @@
 
 #### Truth Table
 For a C-element with a FAN_IN of 2:
-| x <sub>1</sub> | x <sub>2</sub> | y |
+| x_1 | x_2 | y |
 | :--- | :--- | :--- |
 | `0` | `0` | `0` |
-| `0` | `1` | `y <sub>prev</sub>` |
-| `1` | `0` | `y <sub>prev</sub>` |
+| `0` | `1` | `y_prev` |
+| `1` | `0` | `y_prev` |
 | `1` | `1` | `1` |
 
 #### Parameters
