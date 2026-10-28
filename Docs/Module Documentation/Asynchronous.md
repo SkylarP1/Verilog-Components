@@ -27,7 +27,7 @@ For a C-element with a FAN_IN of 2:
 #### Inputs
 | Port | Bitwidth | Depth | Description |
 | :--- | :---: | :--- | :--- |
-| `x` | `FAN_IN` | `WIDTH` | Inputs for each c-element. WIDTH determines how many elements the module has, and FAN_IN determines how many inputs each element has. When flat, X would have slices of FAN_IN width. |
+| `x` | `FAN_IN` | `WIDTH` | Inputs for each c-element. `WIDTH` determines how many elements the module has, and `FAN_IN` determines how many inputs each element has. When flat, `x` would have slices of `FAN_IN` width. |
 
 #### Outputs
 | Port | Bitwidth | Description |
@@ -36,7 +36,7 @@ For a C-element with a FAN_IN of 2:
 
 #### Notes
 * For higher `FAN_IN`, there are still only two input configurations where the state of `y` will change, other combinations will continue to hold the previous state.
-* X is a 2d input, columns are defined by FAN_IN, rows are defined by WIDTH
+* `x` is a 2d input, columns are defined by `FAN_IN`, rows are defined by `WIDTH`
 
 ---
 
