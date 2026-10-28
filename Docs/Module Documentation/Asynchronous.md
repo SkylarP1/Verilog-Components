@@ -3,7 +3,7 @@
 ## c_param
 
 ### Description
-`c_param` is a parameterized module used in asynchronous computing, commonly known as the Muller  when all inputs are `0`, it outputs `0`. When all inputs are `1`, it outputs `1`. Otherwise the output is it's held from it's previous state.
+`c_param` is a parameterized module used in asynchronous computing, commonly known as the Muller C-Element. When all inputs are `0`, it outputs `0`. When all inputs are `1`, it outputs `1`. Otherwise the output is it's held from it's previous state.
 
 ---
 
