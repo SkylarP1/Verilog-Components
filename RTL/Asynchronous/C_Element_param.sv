@@ -6,13 +6,15 @@ module c_param #(
     output  logic   [WIDTH-1:0]             y
 );
 
+    logic [WIDTH-1:0] state;
+
     genvar i;
 
     generate
         for(i=0; i < WIDTH; i = i + 1) begin : ce_gen
-            always_comb begin : c_elem
-               y[i] = (&x[i]) | y[i] & (|x[i]); 
-            end
+            assign state[i] = (&x[i]) | state[i] & (|x[i]); 
         end
     endgenerate
+
+    assign y = state;
 endmodule
