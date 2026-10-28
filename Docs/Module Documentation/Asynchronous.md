@@ -52,6 +52,6 @@ c_param #(
 ```
 
 ### Timing Diagram
-![C Element Timing Diagram](C:\Users\Skylar\Documents\Verilog\Verilog%20Components\Docs\Timing%20Graphs\C%20Element%20Param%20Timing%20Graph.png)
+![C Element Timing Diagram](/Docs/Timing%20Graphs/C%20Element%20Param%20Timing%20Graph.png)
 
 *Figure 1: `c_param` (`WIDTH` = `2`, `FAN_IN` = `2`) output for each combination, both counting up and down*
