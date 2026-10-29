@@ -56,6 +56,8 @@ c_param #(
 
 *Figure 1: `c_param` (`WIDTH` = `2`, `FAN_IN` = `2`) output for each combination, both counting up and down*
 
+---
+
 ## ds_wire
 
 ### Description
@@ -112,3 +114,55 @@ ds_wire #(
 ![ds_wire Timing Diagram](/Docs/Timing%20Graphs/DS%20Wire%20Timing%20Graph.png)
 
 *Figure 1: `ds_wire` (`WIDTH` = `2`) each bit getting tested for each state `00`, `01`, `10`, `11`*
+
+---
+
+## sd_wire
+
+### Description
+`sd_wire` is a parameterized module for asynchronous computing that allows for converting from single-wire communication to duel-wire. See ds_wire for more information on duel wire
+
+---
+
+### Using the Module
+
+#### Truth Table
+| x | y_1 | y_2 |
+| :--- | :--- | :--- |
+| `0` | `0` | `1` |
+| `1` | `1` | `0` |
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | Defines how many single-wire pairs there are and how many duel-wire outputs there are |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `x` | `WIDTH` | Input Single-Wire lines |
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `y` | `WIDTH * 2` | Duel-wire output |
+
+#### Notes
+*since `00` and `11` are only states for communication stability, they do not need to be accounted for during conversion
+
+---
+
+### Instantiation Example
+```SystemVerilog
+sd_wire #(
+    .WIDTH  (4)
+)uut(
+    .x      (x),
+    .y      (y),
+);
+```
+
+### Timing Diagram
+![sd_wire Timing Diagram](/Docs/Timing%20Graphs/SD%20Wire%20Timing%20Graph.png)
+
+*Figure 1: `sd_wire` (`WIDTH` = `4`) testing to see if each single-wire bit properly gets swapped to either `01` or `10`*
