@@ -188,7 +188,7 @@ sd_wire #(
 | `data_in` | `WIDTH*2` | Data to load, in duel-wire |
 | `w_en` | `2` | Load `data_in` when `TRUE HIGH`, uses duel-wire |
 | `r_en` | `2` | Enables `data_out` when `TRUE HIGH`, uses duel-wire, `data_out` `0` when not enabled |
-| `rst` | `2` | Reset when true HIGH |
+| `rst` | `2` | Reset when `TRUE HIGH` |
 
 #### Outputs
 | Port | Bitwidth | Description |
