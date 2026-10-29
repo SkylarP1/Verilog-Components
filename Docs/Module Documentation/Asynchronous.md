@@ -166,3 +166,61 @@ sd_wire #(
 ![sd_wire Timing Diagram](/Docs/Timing%20Graphs/SD%20Wire%20Timing%20Graph.png)
 
 *Figure 1: `sd_wire` (`WIDTH` = `4`) testing to see if each single-wire bit properly gets swapped to either `01` or `10`*
+
+---
+
+## async_reg
+
+### Description
+`async_reg` is a parameterized register that operates asynchronously using duel-wire for the control lines. 
+---
+
+### Using the Module
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | How many duel-wire bit pairs there are, in other words how many true bits there are |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `data_in` | `WIDTH*2` | Data to load, in duel-wire |
+| `w_en` | `2` | Load `data_in` when `TRUE HIGH`, uses duel-wire |
+| `r_en` | `2` | Enables `data_out` when `TRUE HIGH`, uses duel-wire, `data_out` `0` when not enabled |
+| `rst` | `2` | Reset when true HIGH |
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `data_in` | `WIDTH*2` | Data output in duel-wire |
+| `written` | `2` | `TRUE HIGH` when internal register has no `null` duel-wire bits |
+
+#### Notes
+* `w_en` resets internal register when enabled to prevent issues with `written`
+* For a reminder, `TRUE HIGH` refers to `10`, `TRUE LOW` refers to `01`. When labeled true, it refers to the single-wire equivalent
+*Each control line must be set to `TRUE LOW` before it can be used and set `TRUE HIGH`, this is to help prevent interferance causing unwanted line enables
+*`rst`, `w_en`, `r_en` can all be done at once, `rst` comes first, then `w_en`, then finally `r_en`
+
+---
+
+### Instantiation Example
+```SystemVerilog
+async_reg #(
+    .WIDTH      (4)
+)uut(
+    .data_in    (data_in),
+    .w_en       (w_en),
+    .rst        (rst),
+    .r_en       (r_en),
+    .data_out   (data_out),
+    .written    (written)
+);
+```
+
+### Timing Diagram
+![Async reg Timing Diagram](/Docs/Timing%20Graphs/Asynchronous%20Register%20Timing%20Graph.png)
+
+*Figure 1: `async_reg` (`WIDTH` = `4`) being written with, in single-wire `0011` to test internal latches, then `1100` to test `w_en`'s reset.*
+
+---
