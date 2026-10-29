@@ -22,12 +22,12 @@ module c_param_tb;
 
         for(int i = 0; i < 16; i++) begin
             x = i[3:0];
-            #5;
+            #5
         end
         #5
         for(int i = 15; i >= 0; i--) begin
             x = i[3:0];
-            #5;
+            #5
         end
         $finish;
     end

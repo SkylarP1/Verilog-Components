@@ -55,3 +55,61 @@ c_param #(
 ![C Element Timing Diagram](/Docs/Timing%20Graphs/C%20Element%20Param%20Timing%20Graph.png)
 
 *Figure 1: `c_param` (`WIDTH` = `2`, `FAN_IN` = `2`) output for each combination, both counting up and down*
+
+## ds_wire
+
+### Description
+`ds_wire` is a parameterized module for asynchronous computing that allows for converting from duel-wire communication to single-wire. Duel-wire allows for better reliability in communication, less prone to instable connection errors and external interferance.
+
+---
+
+### Using the Module
+
+#### Truth Table
+For a C-element with a FAN_IN of 2:
+| x_1 | x_2 | y | y_hat | no | invalid |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `0` | `0` | `0` | `0` | `1` | `0` |
+| `0` | `1` | `0` | `1` | `0` | `0` |
+| `1` | `0` | `1` | `0` | `0` | `0` |
+| `1` | `1` | `0` | `0` | `0` | `1` |
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `WIDTH` | `4` | Defines how many duel-wire pairs there are and how many single-wire outputs there are |
+
+#### Inputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `x` | `WIDTH * 2` | Input Duel-Wire lines |
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `y` | `WIDTH` | Single-wire `HIGH` output |
+| `y_hat` | `WIDTH` | Single-wire `LOW` output |
+| `no` | `WIDTH` | No input, line pairs are `00` |
+| `invalid` | `WIDTH` | Invalid input, line pairs are `11` |
+
+#### Notes
+
+---
+
+### Instantiation Example
+```SystemVerilog
+ds_wire #(
+    .WIDTH  (2)
+)uut(
+    .x      (x),
+    .y      (y),
+    .y_hat  (y_hat),
+    .no   (no),
+    .invalid(invalid)
+);
+```
+
+### Timing Diagram
+![ds_wire Timing Diagram](/Docs/Timing%20Graphs/DS%20Wire%20Timing%20Graph.png)
+
+*Figure 1: `ds_wire` (`WIDTH` = `2`) each bit getting tested for each state `00`, `01`, `10`, `11`*
