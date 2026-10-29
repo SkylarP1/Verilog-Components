@@ -66,7 +66,6 @@ c_param #(
 ### Using the Module
 
 #### Truth Table
-For a C-element with a FAN_IN of 2:
 | x_1 | x_2 | y | y_hat | no | invalid |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `0` | `0` | `0` | `0` | `1` | `0` |
