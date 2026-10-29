@@ -148,7 +148,7 @@ ds_wire #(
 | `y` | `WIDTH * 2` | Duel-wire output |
 
 #### Notes
-*since `00` and `11` are only states for communication stability, they do not need to be accounted for during conversion
+*since `00` and `11` are only parity states meant for duel-wire native to duel-wire communication, they do not need to be accounted for here
 
 ---
 
