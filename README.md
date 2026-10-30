@@ -38,7 +38,7 @@ All modules are parameterized unless stated otherwise. See documentation for mor
     * `uni_sr_param`
 ### Plexors
 * Multiplexor
-    * `multiplexor`
+    * `mux`
 ### Registers
 * Register
     * `reg_param`
