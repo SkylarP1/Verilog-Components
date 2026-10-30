@@ -24,14 +24,14 @@ wire [15:0] data;
 assign data = {d,c,b,a};
 
 
-multiplexor #(
-    .BITS   (4),
-    .WIDTH  (2)
+mux #(
+    .WIDTH   (4),
+    .SELECT  (2)
 )uut(
-    .data   (data),
+    .data_in   (data),
     .sel    (sel),
     .en     (en),
-    .out    (out)
+    .data_out    (out)
 );
 initial begin
     $dumpfile("dump.vcd");
