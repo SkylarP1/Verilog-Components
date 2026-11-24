@@ -98,7 +98,55 @@ mux #(
 ### Timing Diagram
 ![mux Timing Diagram](/Docs/Timing%20Graphs/Multiplexor%20Param%20Timing%20Graph.png)
 
-*Figure 1: `demux` (WIDTH = 2, SELECT = 2) testing each `sel` value for proper value and enable*
+*Figure 1: `mux` (WIDTH = 2, SELECT = 2) testing each `sel` value for proper value and enable*
+
+
+---
+
+## decoder
+### Description
+`decoder` is a parameterized decoder with dynamic `SELECT` bits.
+
+---
+
+### Using the Module
+
+#### Parameters
+| Parameter | Default | Description |
+| :--- | :--- | :--- |
+| `SELECT` | `2` | Defines how many select lines there are, outputs would be defined as `2**SELECT` |
+
+#### Inputs
+| Port | Fan Out | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `sel` | `N/A` | `SELECT` | Input determining which output bit gets enabled |
+| `en` | `1` | Enables `out` when `HIGH`, when `LOW` `out` is `0` | 
+
+#### Outputs
+| Port | Bitwidth | Description |
+| :--- | :---: | :--- |
+| `out` | `2**SELECT` | Decoded output, decoded value is `HIGH`, otherwise `LOW` |
+
+#### Notes
+* 
+
+---
+
+### Instantiation Example
+```SystemVerilog
+decoder #(
+    .SELECT      (2)
+)uut(
+    .sel        (sel),
+    .en         (en),
+    .out        (out)
+);
+```
+
+### Timing Diagram
+![Decoder Timing Diagram](/Docs/Timing%20Graphs/Decoder%20Param%20Timing%20Graph.png)
+
+*Figure 1: `decoder` (SELECT = 2) testing each `sel` value for proper value and enable*
 
 
 ---
